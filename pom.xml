@@ -74,11 +74,14 @@
               <goal>test</goal>
             </goals>
             <configuration>
-              <projectFile>src/test/resources/webservice-test-soapui-project.xml</projectFile>
+              <projectFile>src/test/resources/timeservice-soapui-project.xml</projectFile>
               <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
               <printReport>true</printReport>
               <junitReport>true</junitReport>
               <settingsFile>${user.home}/soapui-settings.xml</settingsFile>
+              <endpoint>http://localhost:8088/mockTimeServiceSOAP</endpoint>
+              <testSuite>TimeServiceSOAP TestSuite</testSuite>
+              <testCase>RequestTime TestCase</testCase>
               <projectProperties>
                 <value>pmessage=Hello Project!</value>
               </projectProperties>
