@@ -11,7 +11,7 @@
     <mirror>
       <id>nexus</id>
       <mirrorOf>external:*</mirrorOf>
-      <url>http://loedv04.sabrix.com:8081/nexus/content/groups/public/</url>
+      <url>http://localhost:8081/nexus/content/groups/public/</url>
     </mirror>
   </mirrors>
   -->
