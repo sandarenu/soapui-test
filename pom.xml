@@ -67,21 +67,24 @@
         <groupId>eviware</groupId>
         <artifactId>maven-soapui-plugin</artifactId>
         <version>4.5.0</version>
-        <executions>
-          <execution>
-            <phase>integration-test</phase>
-            <goals>
-              <goal>test</goal>
-            </goals>
-            <configuration>
-              <projectFile>${basedir}/src/test/resources/timeservice-soapui-project.xml</projectFile>
-              <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
+        <dependencies>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.6</version>
+            </dependency>
+        </dependencies>
+        <configuration>
+          <projectFile>${basedir}/src/test/resources/timeservice-soapui-project.xml</projectFile>
+          <host>http://127.0.0.1:8088</host>
+          <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
               <printReport>true</printReport>
               <junitReport>true</junitReport>
               <settingsFile>${user.home}/soapui-settings.xml</settingsFile>
-              <endpoint>http://localhost:8088/mockTimeServiceSOAP</endpoint>
-              <testSuite>TimeServiceSOAP TestSuite</testSuite>
+              <endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</endpoint>
+              <testSuite>TimeServiceSuite</testSuite>
               <testCase>RequestTime TestCase</testCase>
+              <mockService>MockService</mockService>
               <projectProperties>
                 <value>pmessage=Hello Project!</value>
               </projectProperties>
@@ -98,9 +101,7 @@
                   <value>src/test/resources</value>
                 </property>
               </soapuiProperties>
-            </configuration>
-          </execution>
-        </executions>
+        </configuration>        
       </plugin>
     </plugins>
   </build>
