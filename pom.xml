@@ -74,7 +74,7 @@
               <goal>test</goal>
             </goals>
             <configuration>
-              <projectFile>src/test/resources/timeservice-soapui-project.xml</projectFile>
+              <projectFile>${basedir}/src/test/resources/timeservice-soapui-project.xml</projectFile>
               <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
               <printReport>true</printReport>
               <junitReport>true</junitReport>
@@ -88,7 +88,7 @@
               <globalProperties>
                 <value>gmessage=Hello Global!</value>
               </globalProperties>           
-              <!-- <soapuiProperties>
+              <soapuiProperties>
                 <property>
                   <name>soapui.logroot</name>
                   <value>${project.build.directory}/soapui-logs/</value>
@@ -97,7 +97,7 @@
                   <name>soapui.scripting.library</name>
                   <value>src/test/resources</value>
                 </property>
-              </soapuiProperties> -->
+              </soapuiProperties>
             </configuration>
           </execution>
         </executions>
