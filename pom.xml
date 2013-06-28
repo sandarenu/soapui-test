@@ -85,6 +85,7 @@
               <testSuite>TimeServiceSuite</testSuite>
               <testCase>RequestTime TestCase</testCase>
               <mockService>MockService</mockService>
+              <noBlock>true</noBlock>              
               <projectProperties>
                 <value>pmessage=Hello Project!</value>
               </projectProperties>
