@@ -16,3 +16,6 @@ Then, I created the pom.xml file to load the **maven-soapui-plugin** and I run t
 
 ```eviware:maven-soapui-plugin:mock eviware:maven-soapui-plugin:test```
 
+NOTE: For Maven to execute SoapUI mock server, you might need to put the rsyntaxtextarea-2.0.1.jar
+in your **JDK/jre/lib/ext** directory before launch of Eclipse or Jenkins.
+
