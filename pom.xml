@@ -3,9 +3,13 @@
   <groupId>soapui-qa</groupId>
   <artifactId>soapui-test</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
+
   <!-- instructions based on http://www.soapui.org/Test-Automation/maven-2x.html -->
+
+  <!-- for this to work you might need to put the rsyntaxtextarea-2.0.1.jar in your JDK/jre/lib/ext directory before launch  -->
   
+  <!-- report matching: **/target/surefire-reports/*.xml  -->
+
   <!-- make sure the following mirror is defined in your settings.xml for Maven
   <mirrors>
     <mirror>
@@ -15,7 +19,7 @@
     </mirror>
   </mirrors>
   -->
-  
+
   <repositories>
     <repository>
       <id>central</id>
@@ -26,32 +30,24 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
-    <repository>
-      <id>eviware-repo</id>
-      <url>http://www.soapui.org/repository/maven2/</url>
-    </repository>
   </repositories>
-  
+
   <pluginRepositories>
     <pluginRepository>
       <id>eviware-plugin-repo</id>
       <url>http://www.soapui.org/repository/maven2/</url>
     </pluginRepository>
   </pluginRepositories>
-  
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
     </dependency>
-    <dependency>
-      <groupId>fife</groupId>
-      <artifactId>rsyntaxtextarea</artifactId>
-      <version>2.0.1</version>
-    </dependency>
+
   </dependencies>
-  
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -68,43 +64,58 @@
         <artifactId>maven-soapui-plugin</artifactId>
         <version>4.5.0</version>
         <dependencies>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.6</version>
-            </dependency>
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+          </dependency>
         </dependencies>
         <configuration>
           <projectFile>${basedir}/src/test/resources/timeservice-soapui-project.xml</projectFile>
           <host>http://127.0.0.1:8088</host>
-          <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
-              <printReport>true</printReport>
-              <junitReport>true</junitReport>
-              <settingsFile>${user.home}/soapui-settings.xml</settingsFile>
-              <endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</endpoint>
-              <testSuite>TimeServiceSuite</testSuite>
-              <testCase>RequestTime TestCase</testCase>
-              <mockService>MockService</mockService>
-              <noBlock>true</noBlock>              
-              <projectProperties>
-                <value>pmessage=Hello Project!</value>
-              </projectProperties>
-              <globalProperties>
-                <value>gmessage=Hello Global!</value>
-              </globalProperties>           
-              <soapuiProperties>
-                <property>
-                  <name>soapui.logroot</name>
-                  <value>${project.build.directory}/soapui-logs/</value>
-                </property>
-                <property>
-                  <name>soapui.scripting.library</name>
-                  <value>src/test/resources</value>
-                </property>
-              </soapuiProperties>
+          <outputFolder>${project.build.directory}/surefire-reports</outputFolder>
+          <printReport>true</printReport>
+          <junitReport>true</junitReport>
+          <testFailIgnore>false</testFailIgnore>
+          <settingsFile>${user.home}/soapui-settings.xml</settingsFile>
+          <endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</endpoint>
+          <testSuite>TimeServiceSuite</testSuite>
+          <testCase>RequestTime TestCase</testCase>
+          <mockService>MockService</mockService>
+          <noBlock>true</noBlock>              
+          <projectProperties>
+            <value>pmessage=Hello Project!</value>
+          </projectProperties>
+          <globalProperties>
+            <value>gmessage=Hello Global!</value>
+          </globalProperties>           
+          <soapuiProperties>
+            <property>
+              <name>soapui.logroot</name>
+              <value>${project.build.directory}/soapui-logs/</value>
+            </property>
+            <property>
+              <name>soapui.scripting.library</name>
+              <value>src/test/resources</value>
+            </property>
+          </soapuiProperties>
         </configuration>        
       </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.15</version>
+        <configuration>
+          <outputDirectory>${project.build.directory}/surefire-reports</outputDirectory>
+          <reportsDirectories>
+              <reportsDirectories>${project.build.directory}/surefire-reports</reportsDirectories>
+          </reportsDirectories>
+        </configuration>
+      </plugin>
+      
     </plugins>
+    
   </build>
-  
+
 </project>
