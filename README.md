@@ -14,7 +14,7 @@ and kept the test suite as simple as possible.  I ended up with the file located
 
 Then, I created the pom.xml file to load the **maven-soapui-plugin** and I run the tests using the following goal:
 
-```eviware:maven-soapui-plugin:mock eviware:maven-soapui-plugin:test```
+```com.github.redfish4ktc.soapui:maven-soapui-extension-plugin:mock com.github.redfish4ktc.soapui:maven-soapui-extension-plugin:test```
 
 
 
