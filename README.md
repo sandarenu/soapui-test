@@ -10,7 +10,7 @@ This project started out as a single .wsdl file at:  **src/test/resources/timese
 
 Then, I created a test suite and mock service using the SoapUI wizard.  In that test suite I added 2 assertions
 and kept the test suite as simple as possible.  I ended up with the file located at:
-**/src/test/resources/timeservice-soapui-project.xml** 
+**timeservice-soapui-project.xml** 
 
 Then, I created the pom.xml file to load the **maven-soapui-plugin** and I run the tests using the following goal:
 
