@@ -33,6 +33,10 @@
       <id>eviware-plugin-repo</id>
       <url>http://www.soapui.org/repository/maven2/</url>
     </pluginRepository>
+    <pluginRepository>
+      <id>p-central</id>
+      <url>http://repo1.maven.org/maven2</url>
+    </pluginRepository>
   </pluginRepositories>
 
   <dependencies>
@@ -77,13 +81,16 @@
           </dependency>
         </dependencies>
         <configuration>
-          <!--  <runnerType>PRO</runnerType> -->
+          <runnerType>OSS</runnerType>
           <projectFile>${basedir}/timeservice-soapui-project.xml</projectFile>
           <host>127.0.0.1:8088</host>
           <exportAll>true</exportAll>
           <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
-          <reportFormat>HTML</reportFormat>
-          <coverage>false</coverage>
+          <!-- <reportFormat>HTML</reportFormat> -->
+          <!-- <coverage>false</coverage> -->
+          <!-- <openReport>true</openReport> -->
+          <!-- <environment>TEST-CI</environment> -->
+          <!-- <reportName>TEST</reportName> -->
           <printReport>true</printReport>
           <junitReport>true</junitReport>
           <testFailIgnore>true</testFailIgnore>
