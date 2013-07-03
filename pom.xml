@@ -6,10 +6,6 @@
 
   <!-- instructions based on http://www.soapui.org/Test-Automation/maven-2x.html -->
 
-  <!-- for this to work you might need to put the rsyntaxtextarea-2.0.1.jar in your JDK/jre/lib/ext directory before launch  -->
-  
-  <!-- report matching: **/target/surefire-reports/*.xml  -->
-
   <!-- make sure the following mirror is defined in your settings.xml for Maven
   <mirrors>
     <mirror>
@@ -60,23 +56,37 @@
         </configuration>
       </plugin>
       <plugin>
+        <!-- This method gives less detailed reports
         <groupId>eviware</groupId>
-        <artifactId>maven-soapui-plugin</artifactId>
-        <version>4.5.0</version>
+        <artifactId>maven-soapui-pro-plugin</artifactId>
+        <version>4.5.0</version> -->
+        <groupId>com.github.redfish4ktc.soapui</groupId>
+        <artifactId>maven-soapui-extension-plugin</artifactId>
+        <version>4.5.1.4</version>
         <dependencies>
+          <!-- An example of database import
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
+          </dependency> -->
+          <dependency>
+            <groupId>fife</groupId>
+            <artifactId>rsyntaxtextarea</artifactId>
+            <version>2.0.1</version>
           </dependency>
         </dependencies>
         <configuration>
-          <projectFile>${basedir}/src/test/resources/timeservice-soapui-project.xml</projectFile>
-          <host>http://127.0.0.1:8088</host>
-          <outputFolder>${project.build.directory}/surefire-reports</outputFolder>
+          <!--  <runnerType>PRO</runnerType> -->
+          <projectFile>${basedir}/timeservice-soapui-project.xml</projectFile>
+          <host>127.0.0.1:8088</host>
+          <exportAll>true</exportAll>
+          <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
+          <reportFormat>HTML</reportFormat>
+          <coverage>false</coverage>
           <printReport>true</printReport>
           <junitReport>true</junitReport>
-          <testFailIgnore>false</testFailIgnore>
+          <testFailIgnore>true</testFailIgnore>
           <settingsFile>${user.home}/soapui-settings.xml</settingsFile>
           <endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</endpoint>
           <testSuite>TimeServiceSuite</testSuite>
@@ -84,11 +94,11 @@
           <mockService>MockService</mockService>
           <noBlock>true</noBlock>              
           <projectProperties>
-            <value>pmessage=Hello Project!</value>
+            <value>pmessage=Project Property</value>
           </projectProperties>
           <globalProperties>
-            <value>gmessage=Hello Global!</value>
-          </globalProperties>           
+            <value>gmessage=Global Property</value>
+          </globalProperties>            
           <soapuiProperties>
             <property>
               <name>soapui.logroot</name>
@@ -98,20 +108,12 @@
               <name>soapui.scripting.library</name>
               <value>src/test/resources</value>
             </property>
+            <!-- <property>
+              <name>soapui.junit.reportCollector</name>
+              <value>org.ktc.soapui.maven.extension.impl.report.NoOpReportCollector</value>
+            </property> --> 
           </soapuiProperties>
         </configuration>        
-      </plugin>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.15</version>
-        <configuration>
-          <outputDirectory>${project.build.directory}/surefire-reports</outputDirectory>
-          <reportsDirectories>
-              <reportsDirectories>${project.build.directory}/surefire-reports</reportsDirectories>
-          </reportsDirectories>
-        </configuration>
       </plugin>
       
     </plugins>

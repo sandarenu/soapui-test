@@ -59,7 +59,7 @@
       </con:part>
     </con:definitionCache>
     <con:endpoints>
-      <con:endpoint>http://pdxsasqa071:8088/mockTimeServiceSOAP</con:endpoint>
+      <con:endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</con:endpoint>
     </con:endpoints>
     <con:operation isOneWay="false" action="urn:RequestTime" name="RequestTime" bindingOperationName="RequestTime" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
       <con:settings/>
@@ -68,7 +68,7 @@
           <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
         </con:settings>
         <con:encoding>UTF-8</con:encoding>
-        <con:endpoint>http://pdxsasqa071:8088/mockTimeServiceSOAP</con:endpoint>
+        <con:endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</con:endpoint>
         <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tim="http://www.example.org/timeservice/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -92,17 +92,17 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RequestTime TestCase" searchProperties="true">
       <con:settings/>
-      <con:testStep type="request" name="RequestTime">
+      <con:testStep type="request" name="RequestTimePST">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>TimeServiceSOAP</con:interface>
           <con:operation>RequestTime</con:operation>
-          <con:request name="RequestTime" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="">
+          <con:request name="RequestTimePST" outgoingWss="" incomingWss="" timeout="" sslKeystore="" useWsAddressing="false" useWsReliableMessaging="false" wssPasswordType="">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>http://pdxsasqa071:8088/mockTimeServiceSOAP</con:endpoint>
+            <con:endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tim="http://www.example.org/timeservice/">
    <soapenv:Header/>
    <soapenv:Body>
@@ -129,25 +129,47 @@
           </con:request>
         </con:config>
       </con:testStep>
-      <con:loadTest name="LoadTest 1">
+      <con:testStep type="request" name="RequestTimeGMT">
         <con:settings/>
-        <con:threadCount>5</con:threadCount>
-        <con:startDelay>0</con:startDelay>
-        <con:sampleInterval>250</con:sampleInterval>
-        <con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed>
-        <con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange>
-        <con:historyLimit>-1</con:historyLimit>
-        <con:testLimit>60</con:testLimit>
-        <con:limitType>TIME</con:limitType>
-        <con:loadStrategy>
-          <con:type>Simple</con:type>
-        </con:loadStrategy>
-        <con:assertion type="Step Status" name="Step Status"/>
-        <con:maxAssertionErrors>100</con:maxAssertionErrors>
-        <con:cancelExcessiveThreads>true</con:cancelExcessiveThreads>
-        <con:strategyInterval>500</con:strategyInterval>
-        <con:reportParameters/>
-      </con:loadTest>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>TimeServiceSOAP</con:interface>
+          <con:operation>RequestTime</con:operation>
+          <con:request name="RequestTimeGMT">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tim="http://www.example.org/timeservice/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tim:RequestTimeElement>
+         <TimeZone>GMT</TimeZone>
+      </tim:RequestTimeElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion type="Simple Contains" name="Contains">
+              <con:configuration>
+                <token>05:23</token>
+                <ignoreCase>false</ignoreCase>
+                <useRegEx>false</useRegEx>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials>
+              <con:authType>Global HTTP Settings</con:authType>
+            </con:credentials>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
       <con:properties/>
       <con:reportParameters/>
     </con:testCase>
@@ -159,16 +181,31 @@
       <con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting>
     </con:settings>
     <con:mockOperation name="RequestTime" interface="TimeServiceSOAP" operation="RequestTime">
+      <con:description>GMT Response</con:description>
       <con:settings/>
       <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
-      <con:defaultResponse>Response 1</con:defaultResponse>
-      <con:response name="Response 1" encoding="UTF-8">
+      <con:defaultResponse>MockResponse-PST</con:defaultResponse>
+      <con:response name="MockResponse-PST" encoding="UTF-8" outgoingWss="">
+        <con:description>PST Response</con:description>
         <con:settings/>
         <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tim="http://www.example.org/timeservice/">
    <soapenv:Header/>
    <soapenv:Body>
       <tim:TimeResponseElement>
          <Time>16:25</Time>
+      </tim:TimeResponseElement>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RequestTime"/>
+      </con:response>
+      <con:response name="MockResponse-GMT" encoding="UTF-8">
+        <con:description>GMT Response</con:description>
+        <con:settings/>
+        <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tim="http://www.example.org/timeservice/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tim:TimeResponseElement>
+         <Time>05:23</Time>
       </tim:TimeResponseElement>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:responseContent>
