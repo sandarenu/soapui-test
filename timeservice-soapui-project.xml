@@ -156,7 +156,7 @@
    <soapenv:Header/>
    <soapenv:Body>
       <tim:RequestTimeElement>
-         <TimeZone>PST</TimeZone>
+         <TimeZone>CST</TimeZone>
       </tim:RequestTimeElement>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -191,8 +191,8 @@
     <con:mockOperation name="RequestTime" interface="TimeServiceSOAP" operation="RequestTime">
       <con:settings/>
       <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
-      <con:defaultResponse>Response 1</con:defaultResponse>
-      <con:response name="Response 1" encoding="UTF-8">
+      <con:defaultResponse>EveningResponse</con:defaultResponse>
+      <con:response name="EveningResponse" encoding="UTF-8">
         <con:settings/>
         <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tim="http://www.example.org/timeservice/">
    <soapenv:Header/>
@@ -204,7 +204,7 @@
 </soapenv:Envelope>]]></con:responseContent>
         <con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:RequestTime"/>
       </con:response>
-      <con:response name="Response2" encoding="UTF-8">
+      <con:response name="MorningResponse" encoding="UTF-8">
         <con:settings/>
         <con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tim="http://www.example.org/timeservice/">
    <soapenv:Header/>
