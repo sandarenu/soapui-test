@@ -1,49 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>soapui-qa</groupId>
-  <artifactId>soapui-test</artifactId>
+  <groupId>qa.soapui</groupId>
+  <artifactId>sample</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <!-- instructions based on http://www.soapui.org/Test-Automation/maven-2x.html -->
 
-  <!-- make sure the following mirror is defined in your settings.xml for Maven
-  <mirrors>
-    <mirror>
-      <id>nexus</id>
-      <mirrorOf>external:*</mirrorOf>
-      <url>http://localhost:8081/nexus/content/groups/public/</url>
-    </mirror>
-  </mirrors>
-  -->
-
-  <repositories>
-    <repository>
-      <id>central</id>
-      <name>Maven Central</name>
-      <layout>default</layout>
-      <url>http://repo1.maven.org/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>eviwareRepository</id>
-      <url>http://www.soapui.org/repository/maven2</url>
-    </repository>
-  </repositories>
+  <!-- if necessary, filter for Jenkins report matching is: **/target/surefire-reports/*.xml  -->
 
   <pluginRepositories>
+
     <pluginRepository>
-      <id>eviwarePluginRepository</id>
+      <id>eviware-soapui</id>
       <url>http://www.soapui.org/repository/maven2/</url>
     </pluginRepository>
-    <pluginRepository>
-      <id>p-central</id>
-      <url>http://repo1.maven.org/maven2</url>
-    </pluginRepository>
+
   </pluginRepositories>
 
   <dependencies>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -64,20 +39,19 @@
         </configuration>
       </plugin>
       <plugin>
-        <!-- This method gives less detailed reports
-        <groupId>eviware</groupId>
+        <!-- <groupId>eviware</groupId>
         <artifactId>maven-soapui-pro-plugin</artifactId>
-        <version>4.5.0</version> -->
+        <version>4.5.1</version> -->
         <groupId>com.github.redfish4ktc.soapui</groupId>
         <artifactId>maven-soapui-extension-plugin</artifactId>
+        <!-- extension plugin is from https://github.com/redfish4ktc/maven-soapui-extension-plugin -->
         <version>4.5.1.4</version>
         <dependencies>
-          <!-- An example of database import
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
-          </dependency> -->
+          </dependency>
           <dependency>
             <groupId>fife</groupId>
             <artifactId>rsyntaxtextarea</artifactId>
@@ -85,31 +59,27 @@
           </dependency>
         </dependencies>
         <configuration>
-          <runnerType>OSS</runnerType>
           <projectFile>${basedir}/timeservice-soapui-project.xml</projectFile>
-          <host>127.0.0.1:8088</host>
-          <exportAll>true</exportAll>
+          <host>http://${host.port}</host>
           <outputFolder>${project.build.directory}/soapui-reports</outputFolder>
-          <!-- <reportFormat>HTML</reportFormat> -->
-          <!-- <coverage>false</coverage> -->
-          <!-- <openReport>true</openReport> -->
-          <!-- <environment>TEST-CI</environment> -->
-          <!-- <reportName>TEST</reportName> -->
+          <exportAll>true</exportAll>
+          <reportFormat>HTML</reportFormat>
+          <coverage>true</coverage>
           <printReport>true</printReport>
           <junitReport>true</junitReport>
           <testFailIgnore>true</testFailIgnore>
           <settingsFile>${user.home}/soapui-settings.xml</settingsFile>
-          <endpoint>http://127.0.0.1:8088/mockTimeServiceSOAP</endpoint>
-          <testSuite>TimeServiceSuite</testSuite>
+          <endpoint>http://${host.port}/mockTimeServiceSOAP</endpoint>
+          <testSuite>${soapui.suite}</testSuite>
           <testCase>RequestTime TestCase</testCase>
           <mockService>MockService</mockService>
           <noBlock>true</noBlock>              
           <projectProperties>
-            <value>pmessage=Project Property</value>
+            <value>pmessage=Hello Project!</value>
           </projectProperties>
           <globalProperties>
-            <value>gmessage=Global Property</value>
-          </globalProperties>            
+            <value>gmessage=Hello Global!</value>
+          </globalProperties>           
           <soapuiProperties>
             <property>
               <name>soapui.logroot</name>
@@ -119,16 +89,33 @@
               <name>soapui.scripting.library</name>
               <value>src/test/resources</value>
             </property>
-            <property>
-              <name>soapui.junit.reportCollector</name>
-              <value>org.ktc.soapui.maven.extension.impl.report.NoOpReportCollector</value>
-            </property> 
           </soapuiProperties>
         </configuration>        
       </plugin>
-      
+
     </plugins>
-    
+
   </build>
+
+  <!-- Profiles start here -->
+  <profiles>
+
+    <profile>
+      <id>suite1</id>
+      <properties>
+        <host.port>127.0.0.1:8080</host.port>
+        <soapui.suite>Suite1</soapui.suite>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>suite2</id>
+      <properties>
+        <host.port>127.0.0.1:8080</host.port>
+        <soapui.suite>Suite2</soapui.suite>
+      </properties>
+    </profile>
+
+  </profiles>
 
 </project>
