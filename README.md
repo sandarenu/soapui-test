@@ -18,7 +18,7 @@ Then, I created the pom.xml file to load the **maven-soapui-plugin** and I run t
 mvn.bat
     com.github.redfish4ktc.soapui:maven-soapui-extension-plugin:mock 
         com.github.redfish4ktc.soapui:maven-soapui-extension-plugin:test
-            -Psuite2
+            -Psuite2 -D127.0.0.1:8088
 ```
 
 
