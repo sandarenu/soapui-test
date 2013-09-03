@@ -133,7 +133,7 @@
 
   </build>
 
-  <!-- Profiles start here -->
+  <!-- Profiles start here.  Select a profile by passing -Pprofilename as an arg to Maven -->
   <profiles>
 
     <profile>
