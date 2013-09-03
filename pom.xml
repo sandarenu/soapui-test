@@ -67,6 +67,20 @@
         <!-- extension plugin is from https://github.com/redfish4ktc/maven-soapui-extension-plugin -->
         <version>4.5.1.4</version>
         <dependencies>
+          <!-- Provide JDBC dependencies for Groovy script tasks. Currently the JDBC .jar needs to be located
+             in both bin/ext  and jre/lib/ext  in order to load the JDBC drivers.  I am hoping that by adding
+             this Maven dependency, that the jre/lib/ext location will no longer be required. I still need
+             to verify that fact and I will remove this comment after I do so. -->
+          <dependency>
+            <groupId>oracle.jdbc</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.3.0</version>
+          </dependency>
+          <dependency>
+            <groupId>com.microsoft.sqlserver.jdbc</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.0</version>
+          </dependency>
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
