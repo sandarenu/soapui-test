@@ -71,6 +71,7 @@
              in both bin/ext  and jre/lib/ext  in order to load the JDBC drivers.  I am hoping that by adding
              this Maven dependency, that the jre/lib/ext location will no longer be required. I still need
              to verify that fact and I will remove this comment after I do so. -->
+          <!--
           <dependency>
             <groupId>oracle.jdbc</groupId>
             <artifactId>ojdbc6</artifactId>
@@ -86,6 +87,7 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
           </dependency>
+          -->
           <dependency>
             <groupId>fife</groupId>
             <artifactId>rsyntaxtextarea</artifactId>
